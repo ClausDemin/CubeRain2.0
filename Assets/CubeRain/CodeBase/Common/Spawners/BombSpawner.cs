@@ -1,8 +1,6 @@
 ﻿using Assets.CubeRain.CodeBase.Common.BombFeature;
 using Assets.CubeRain.CodeBase.Common.CubeFeature;
-using Assets.CubeRain.CodeBase.Infrastructure.Configs;
 using Assets.CubeRain.CodeBase.Infrastructure.ObjectPool.Interface;
-using Assets.CubeRain.CodeBase.Infrastructure.ResourcesLoading.Interface;
 using System;
 using UnityEngine;
 using Zenject;
