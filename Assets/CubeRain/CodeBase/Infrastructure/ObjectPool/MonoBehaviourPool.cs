@@ -33,6 +33,7 @@ namespace Assets.CubeRain.CodeBase.Infrastructure.ObjectPool
             else
             {
                 instance = Instantiate();
+                instance.Disable();
 
                 OverallInstancesCreated++;
             }

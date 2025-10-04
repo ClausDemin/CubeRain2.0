@@ -36,6 +36,8 @@ namespace Assets.CubeRain.CodeBase.Common.Spawners
         {
             YieldInstruction delay = new WaitForSeconds(_interval);
 
+            yield return delay;
+
             while (CanSpawn())
             {
                 Cube instance = Pool.Get(ComputeSpawnPosition(), Quaternion.identity, null);
@@ -58,7 +60,7 @@ namespace Assets.CubeRain.CodeBase.Common.Spawners
             return !_hasLimit || !IsSpawnLimitReached();
         }
 
-        protected virtual Vector3 ComputeSpawnPosition()
+        private Vector3 ComputeSpawnPosition()
         {
             Vector2 area = UnityEngine.Random.insideUnitCircle * _radius;
             Vector3 offset = new Vector3(area.x, 0, area.y);
