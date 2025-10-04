@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae0167f5b915f4742b78e1c6bb6ac7ad, type: 3}
+  m_Name: ConfigProvider
+  m_EditorClassIdentifier: 
+  _paths:
+  - Bomb/BombConfig
+  - Bomb/BombSpawnerConfig
+  - Cube/CubeConfig
+  - Cube/CubeSpawnerConfig
+  _typeNames:
+  - Assets.CubeRain.CodeBase.Infrastructure.Configs.BombConfig
+  - Assets.CubeRain.CodeBase.Infrastructure.Configs.BombSpawnerConfig
+  - Assets.CubeRain.CodeBase.Infrastructure.Configs.CubeConfig
+  - Assets.CubeRain.CodeBase.Infrastructure.Configs.CubeSpawnerConfig
