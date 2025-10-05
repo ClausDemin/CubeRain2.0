@@ -36,8 +36,8 @@ namespace Assets.CubeRain.CodeBase.Infrastructure.Installers
 
         private void RegisterSpawners() 
         { 
-            Container.Bind<CubeSpawner>().FromInstance(_cubeSpawner).AsSingle();
-            Container.Bind<BombSpawner>().FromInstance(_bombSpawner).AsSingle();
+            Container.Bind<PooledInstanceSpawner<Cube>>().To<CubeSpawner>().FromInstance(_cubeSpawner).AsSingle();
+            Container.Bind<PooledInstanceSpawner<Bomb>>().To<BombSpawner>().FromInstance(_bombSpawner).AsSingle();
         }
     }
 }

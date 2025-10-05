@@ -1,4 +1,5 @@
 ﻿using Assets.CubeRain.CodeBase.Infrastructure.ObjectPool.Interface;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -14,6 +15,8 @@ namespace Assets.CubeRain.CodeBase.Common.Spawners
         {
             Pool = pool;
         }
+
+        public abstract event Action<T> InstanceSpawned;
 
         public int InstantiatedObjectsCount => Pool.OverallInstancesGiven;
         public int CreatedObjectsCount => Pool.OverallInstancesCreated;

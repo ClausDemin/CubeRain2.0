@@ -24,6 +24,8 @@ namespace Assets.CubeRain.CodeBase.Infrastructure.Factories
         {
             Bomb instance = _instantiator.InstantiatePrefabForComponent<Bomb>(_config.Prefab);
 
+            instance.Construct(_config.MinLifetime, _config.MaxLifetime);
+
             MeshRenderer renderer;
 
             if (instance.TryGetComponent(out renderer)) 
@@ -59,7 +61,7 @@ namespace Assets.CubeRain.CodeBase.Infrastructure.Factories
         {
             if (instance.TryGetComponent(out Exploder exploder)) 
             {
-                exploder.Init(_config.ExplosionForce, _config.ExplosionRadius);
+                exploder.Init(_config.ExplosionForce, _config.ExplosionRadius, _config.MaximumTargets);
             }
         }
     }

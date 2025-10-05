@@ -7,16 +7,22 @@ namespace Assets.CubeRain.CodeBase.Common.ExplosionFeature
     {
         private float _explosionForce;
         private float _explosionRadius;
+        private int _maximumTargets;
 
-        public bool IsInitialized;
+        private Collider[] _objectsInRadius;
 
-        public void Init(float explosionForce, float explosionRadius) 
+        public bool IsInitialized { get; private set; }
+
+        public void Init(float explosionForce, float explosionRadius, int maximumTargets) 
         {
             if (IsInitialized == false) 
             { 
                 _explosionForce = explosionForce;
                 _explosionRadius = explosionRadius;
-                
+                _maximumTargets = maximumTargets;
+
+                _objectsInRadius = new Collider[_maximumTargets];
+
                 IsInitialized = true;
             }
         }
@@ -31,13 +37,13 @@ namespace Assets.CubeRain.CodeBase.Common.ExplosionFeature
 
         private List<Rigidbody> GetTargets() 
         {
-            Collider[] objectsInRadius = Physics.OverlapSphere(transform.position, _explosionRadius);
+            Physics.OverlapSphereNonAlloc(transform.position, _explosionRadius, _objectsInRadius);
 
             List<Rigidbody> involvedBodies = new List<Rigidbody>();
 
-            foreach (Collider collider in objectsInRadius) 
+            foreach (Collider collider in _objectsInRadius) 
             {
-                if (collider.TryGetComponent(out Rigidbody rigidbody)) 
+                if (collider != null && collider.TryGetComponent(out Rigidbody rigidbody)) 
                 { 
                     involvedBodies.Add(rigidbody);
                 }

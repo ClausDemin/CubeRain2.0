@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _explosionForce: 1000
   _explosionRadius: 20
+  _maximumTargets: 20
   <Prefab>k__BackingField: {fileID: 5714552870156353351, guid: 30a21aa68cdf702478eb51a6af77bc38, type: 3}
   <MinLifetime>k__BackingField: 2
   <MaxLifetime>k__BackingField: 5

@@ -19,14 +19,21 @@ namespace Assets.CubeRain.CodeBase.Common.CubeFeature
 
         private bool _isGroundTouched;
 
-        public void Construct(float minLifeTime, float maxLifeTime) 
-        { 
-            _minLifeTime = minLifeTime;
-            _maxLifeTime = maxLifeTime;
+        public void Construct(float minLifeTime, float maxLifeTime)
+        {
+            if (IsInitialized == false)
+            {
+                _minLifeTime = minLifeTime;
+                _maxLifeTime = maxLifeTime;
+
+                IsInitialized = true;
+            }
         }
 
         public event Action<IPooledInstance> Released;
         public event Action<IPooledInstance> Disposed;
+
+        public bool IsInitialized { get; private set; }
 
         private void Awake()
         {
@@ -65,9 +72,9 @@ namespace Assets.CubeRain.CodeBase.Common.CubeFeature
             _isGroundTouched = false;
         }
 
-        private void OnGroundTouched(Collision collision) 
+        private void OnGroundTouched(Collision collision)
         {
-            if (!_isGroundTouched && collision.gameObject.TryGetComponent(out Ground ground)) 
+            if (!_isGroundTouched && collision.gameObject.TryGetComponent(out Ground ground))
             {
                 _isGroundTouched = true;
                 _colorChanger.SetRandomColor();
@@ -76,12 +83,12 @@ namespace Assets.CubeRain.CodeBase.Common.CubeFeature
             }
         }
 
-        private float SelectLifetime() 
+        private float SelectLifetime()
         {
             return Randomizer.GetRandomFloat(_minLifeTime, _maxLifeTime);
         }
 
-        private IEnumerator DisableAfterTime(float lifeTime) 
+        private IEnumerator DisableAfterTime(float lifeTime)
         {
             YieldInstruction delay = new WaitForSeconds(lifeTime);
 

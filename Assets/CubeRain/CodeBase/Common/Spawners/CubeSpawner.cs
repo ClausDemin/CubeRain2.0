@@ -25,7 +25,7 @@ namespace Assets.CubeRain.CodeBase.Common.Spawners
             Initialize(_config.Interval, _config.Radius, _config.Limit, _config.HasLimit);
         }
 
-        public event Action<Cube> CubeSpawned;
+        public override event Action<Cube> InstanceSpawned;
 
         private void Start()
         {
@@ -36,13 +36,11 @@ namespace Assets.CubeRain.CodeBase.Common.Spawners
         {
             YieldInstruction delay = new WaitForSeconds(_interval);
 
-            yield return delay;
-
             while (CanSpawn())
             {
                 Cube instance = Pool.Get(ComputeSpawnPosition(), Quaternion.identity, null);
 
-                CubeSpawned?.Invoke(instance);
+                InstanceSpawned?.Invoke(instance);
 
                 yield return delay;
             }

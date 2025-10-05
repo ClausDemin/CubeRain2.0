@@ -1,13 +1,10 @@
 ﻿using Assets.CubeRain.CodeBase.Common.ColorChangeFeature;
 using Assets.CubeRain.CodeBase.Common.ExplosionFeature;
-using Assets.CubeRain.CodeBase.Infrastructure.Configs;
 using Assets.CubeRain.CodeBase.Infrastructure.ObjectPool.Interface;
-using Assets.CubeRain.CodeBase.Infrastructure.ResourcesLoading.Interface;
 using Assets.CubeRain.CodeBase.Infrastructure.Utils.Randomization;
 using System;
 using System.Collections;
 using UnityEngine;
-using Zenject;
 
 namespace Assets.CubeRain.CodeBase.Common.BombFeature
 {
@@ -20,17 +17,21 @@ namespace Assets.CubeRain.CodeBase.Common.BombFeature
         private float _minLifeTime;
         private float _maxLifeTime;
 
-        [Inject]
-        private void Construct(IStaticDataProvider staticDataProvider) 
-        { 
-            BombConfig config = staticDataProvider.GetConfig<BombConfig>();
-
-            _minLifeTime = config.MinLifetime;
-            _maxLifeTime = config.MaxLifetime;
+        public void Construct(float minLifeTime, float maxLifeTime) 
+        {
+            if (IsInitialized == false) 
+            { 
+                _minLifeTime = minLifeTime;
+                _maxLifeTime = maxLifeTime;
+                
+                IsInitialized = true;
+            }
         }
 
         public event Action<IPooledInstance> Released;
         public event Action<IPooledInstance> Disposed;
+
+        public bool IsInitialized { get; private set; }
 
         private void Awake()
         {

@@ -10,34 +10,29 @@ namespace Assets.CubeRain.CodeBase.Common.Spawners
 {
     public class BombSpawner : PooledInstanceSpawner<Bomb>
     {
-        private CubeSpawner _cubeSpawner;
+        private PooledInstanceSpawner<Cube> _cubeSpawner;
 
         [Inject]
-        private void Construct(CubeSpawner cubeSpawner)
+        private void Construct(PooledInstanceSpawner<Cube> cubeSpawner)
         {
             _cubeSpawner = cubeSpawner;
         }
 
-        public event Action<Bomb> BombSpawned;
+        public override event Action<Bomb> InstanceSpawned;
 
         private void Start()
         {
-            _cubeSpawner.CubeSpawned += OnCubeSpawned;
+            _cubeSpawner.InstanceSpawned += OnCubeSpawned;
         }
 
         private void OnDestroy()
         {
-            _cubeSpawner.CubeSpawned -= OnCubeSpawned;
+            _cubeSpawner.InstanceSpawned -= OnCubeSpawned;
         }
 
-        private Vector3 ComputeSpawnPosition()
+        private void OnCubeSpawned(IPooledInstance instance)
         {
-            return transform.position;
-        }
-
-        private void OnCubeSpawned(Cube cube)
-        {
-            cube.Released += Spawn;
+            instance.Released += Spawn;
         }
 
         private void Spawn(IPooledInstance instance)
@@ -46,7 +41,7 @@ namespace Assets.CubeRain.CodeBase.Common.Spawners
             { 
                 Bomb bomb = Pool.Get(cube.transform.position, Quaternion.identity, null);
 
-                BombSpawned?.Invoke(bomb);
+                InstanceSpawned?.Invoke(bomb);
 
                 cube.Released -= Spawn;
             }
